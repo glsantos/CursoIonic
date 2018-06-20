@@ -12,15 +12,24 @@ import 'rxjs/add/operator/map';
 export class MoovieProvider {
 
   private baseApiPath = "https://api.themoviedb.org/3";
-  private apiKey = "4bd8a33a43f49168d8bedfb6f5c9b91f";
 
   constructor(public http: HttpClient) {
     console.log('Hello MoovieProvider Provider');
   }
 
-  getLatestMovies(){
+  getLatestMovies(page = 1){
 
-    return this.http.get(this.baseApiPath + "/movie/popular?api_key=" + this.apiKey);
+    return this.http.get(this.baseApiPath + "/movie/popular?page="+ page +"&api_key=" + this.getApiKey());
+  }
+
+  getMovieDetails(filmeid){
+
+    return this.http.get(this.baseApiPath + "/movie/"+ filmeid +"?api_key=" + this.getApiKey());
+  }
+
+  getApiKey(): string{
+
+    return "4bd8a33a43f49168d8bedfb6f5c9b91f";
   }
 
 }
